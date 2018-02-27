@@ -6,21 +6,20 @@
     <meta charSet="UTF-8" />
     <link rel="stylesheet" type="text/css" href="styles.css">
     <script src="https://unpkg.com/jspdf@latest/dist/jspdf.min.js"></script>
-    </script>
-    <script type="text/javascript" src="script.js"></script>
 </head>
 
 <body>
     <div class="container">
-        <h1>Todo</h1>
-        <form action="" method="post">
-            <label for="text">Description :</label>
-            <input id="text" type="text" name="text" />
-            <input type="submit" value="Ajouter" />
+        <h1>Super recette</h1>
+        <input id="export" type="button" value="Exporter en PDF" />
+        <form class="add-items">
+            <input type="text" name="item" placeholder="Ingrédient" required/>
+            <input type="submit" value="+" />
         </form>
-        <ul></ul>
-        <input id="export" type="button" value="Exporter" />
+        <ul class="list"></ul>
     </div>
+    <script type="text/javascript" src="model.js"></script>
+    <script type="text/javascript" src="view.js"></script>
 </body>
 
 </html>
