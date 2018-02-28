@@ -2,29 +2,41 @@ const form = document.querySelector('form');
 const list = document.querySelector('.list');
 const exportButton = document.querySelector('#export');
 
-const renderItems = container => {
-  container.innerHTML = getItems()
-    .map(item => {
-      return `
+const renderItems = container => items => {
+  const newRender = items
+    .map(
+      (item, index) => `
         <li>
-          <span>${item.text}</span>
-          <input type="button" onclick="removeItemView(${item.id})" value="x" />
+          <span>${item}</span>
+          <input type="button" onclick="removeItemView(${index})" value="x" />
         </li>
-      `;
-    })
+      `
+    )
     .join('');
+  container.innerHTML = newRender;
 };
 
-const removeItemView = id => {
-  removeItem(id, getItems());
-  renderItems(list);
-};
+const removeItemView = id =>
+  pipe(
+    getItems,
+    removeItem(id),
+    trace('removeItem'),
+    setItems,
+    getItems,
+    renderItems(list)
+  )();
 
 const addItemView = e => {
   e.preventDefault();
-  const text = form.querySelector('[name=item]').value;
-  addItem(text, getItems());
-  renderItems(list);
+  const name = form.querySelector('[name=item]').value;
+  pipe(
+    getItems,
+    addItem(name),
+    trace('addItem'),
+    setItems,
+    getItems,
+    renderItems(list)
+  )();
   form.reset();
 };
 
@@ -45,4 +57,7 @@ form.addEventListener('submit', addItemView);
 
 exportButton.addEventListener('click', exportItems);
 
-document.addEventListener('DOMContentLoaded', e => renderItems(list));
+document.addEventListener('DOMContentLoaded', e => {
+  const innerList = renderItems(list);
+  innerList(getItems());
+});

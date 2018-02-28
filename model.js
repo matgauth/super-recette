@@ -1,18 +1,11 @@
-// getItems :: _ -> [Item]
+// getItems :: [Item]
 const getItems = () => JSON.parse(localStorage.getItem('items')) || [];
 
 // setItems :: [Item]
-const setItems = items => {
-  localStorage.setItem('items', JSON.stringify(items));
-};
+const setItems = items => localStorage.setItem('items', JSON.stringify(items));
 
-// addItem :: (String, [Item])
-const addItem = (text, items) => {
-  const id = items.length;
-  setItems([...items, { id, text }]);
-};
+// addItem :: (String -> [Item]) -> [Item]
+const addItem = name => items => [...items, name];
 
-// removeItem :: (Int, [Item])
-const removeItem = (id, items) => {
-  setItems(items.filter(item => item.id !== id));
-};
+// removeItem :: (Int -> [Item]) -> [Item]
+const removeItem = id => items => items.filter((_, index) => index !== id);
