@@ -1,3 +1,5 @@
+// -- Items Model ----------------------------------------------------------
+
 // getItems :: [Item]
 const getItems = () => JSON.parse(localStorage.getItem('items')) || [];
 
