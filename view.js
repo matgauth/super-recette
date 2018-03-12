@@ -6,12 +6,11 @@ const exportButton = document.querySelector('#export');
 const renderItems = container => items => {
   const newRender = items
     .map(
-      (item, index) => `
-        <li>
-          <span>${item}</span>
+      (item, index) =>
+        `<li>
+          <span>${escape(item)}</span>
           <input type="button" onclick="removeItemView(${index})" value="x" />
-        </li>
-      `
+        </li>`
     )
     .join('');
 
